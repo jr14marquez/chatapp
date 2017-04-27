@@ -4,6 +4,8 @@ var path = require('path');
 var mime = require('mime');
 var cache = {};
 
+
+
 /* Server: Create server and respond depending on request. */
 var server = http.createServer(function(request, response){
 	var filePath = false;
@@ -19,6 +21,13 @@ var server = http.createServer(function(request, response){
 server.listen(3000, function(){
 	console.log("Server listening on port 3000.");
 });
+
+/* chatServer: load functionality from custom Node module
+ * that supplies login to handle Socket.IO-based server-side
+ * chat functionality.
+ */
+var chatServer = require('./lib/chat_server');
+chatServer.listen(server);
 
 /* Handle 404 errors when requested file is not found on server.*/
 function send404(response){
